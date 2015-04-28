@@ -216,9 +216,12 @@ class AWF_Arabic_Webfonts {
                 
                 // check if font type is duplicated
                 $default_settings_fonts_types = array ( $body_font, $paragraphs_font, $h1_font, $h2_font, $h3_font, $h4_font, $h5_font, $h6_font );
-                $custom_settings_fonts_types = $custom_controls_fonts;
-                $all_fonts_types = array_merge($default_settings_fonts_types, $custom_settings_fonts_types);
-                $final_fonts_types = implode('',array_unique($all_fonts_types));
+                if( $this->get_custom_controls_ids() ) {
+                    $all_fonts_types = array_merge($default_settings_fonts_types, $custom_controls_fonts);
+                    $final_fonts_types = implode('',array_unique($all_fonts_types));
+                } else {
+                    $final_fonts_types = implode('',array_unique($default_settings_fonts_types));
+                }
                 
                 wp_enqueue_style(
                     $this->plugin_name,
